@@ -1,0 +1,34 @@
+
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  build_and_push:
+    name: "Build and push"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+
+      - name: Make tag
+        id: make_tag
+        run: echo ::set-output name=TAG::$(echo ${{ github.repository }} | awk '{print tolower ($0)}')
+
+      - name: Login to registry 
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_REGISTRY }}/${{ steps.make_tag.outputs.TAG }}:${{ steps.get_version.outputs.VERSION }} 
+            ${{ secrets.DOCKER_REGISTRY }}/${{ steps.make_tag.outputs.TAG }}:latest
