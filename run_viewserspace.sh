@@ -5,7 +5,7 @@ echo "Configuring viewser"
 
 if [[ $REMOTE_URL = "" ]]
    then
-      echo "Environment variable $REMOTE_URL must be set"
+      echo "Environment variable REMOTE_URL must be set"
       exit 1
 fi
 
