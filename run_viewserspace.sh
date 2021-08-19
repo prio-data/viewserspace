@@ -1,14 +1,22 @@
 #!/bin/bash
 set -e
 
-echo "Configuring viewser"
-
-if [[ $REMOTE_URL = "" ]]
+if ! viewser config get REMOTE_URL > /dev/null
+then
+   echo "Did not find mounted config file, trying env..."
+   if [[ $REMOTE_URL != "" ]]
    then
-      echo "Environment variable REMOTE_URL must be set"
+      viewser config set REMOTE_URL $REMOTE_URL
+   else
+      echo "Viewser not configured, environment variable REMOTE_URL must be set"
       exit 1
+   fi
 fi
 
-viewser config set REMOTE_URL $REMOTE_URL
+if [ -f /home/views/user_requirements.txt ]
+then
+   echo "Installing user dependencies"
+   pip install -r /home/views/user_requirements.txt
+fi
 
 /home/views/run_notebook_server.sh
