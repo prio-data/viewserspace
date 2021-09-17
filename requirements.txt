@@ -4,3 +4,4 @@ seaborn==0.11.2
 views-stepshift==0.2.1
 stepshift==1.0.3
 views-transformation-library==1.0.0
+views-partitioning==2.0.0
