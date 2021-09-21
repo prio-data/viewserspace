@@ -1,5 +1,5 @@
 
-FROM peder2911/notebook_server:1.0.0
+FROM peder2911/notebook_server:2.0.0
 RUN pip install viewser~=4.0.0
 
 COPY requirements.txt /home/views/vzr_requirements.txt
