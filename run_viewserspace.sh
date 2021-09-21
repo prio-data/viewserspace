@@ -19,4 +19,4 @@ then
    pip install -r /home/views/user_requirements.txt
 fi
 
-/home/views/run_notebook_server.sh
+jupyter notebook
