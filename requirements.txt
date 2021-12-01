@@ -4,4 +4,4 @@ seaborn==0.11.2
 views-stepshift==0.2.1
 views-transformation-library==1.0.0
 views-runs==1.0.0
-viewser==4.4.0
+viewser==4.4.1
